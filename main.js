@@ -14,5 +14,8 @@ const settings = ["port", "dbPath", "sharedDb", "cors", "delayTransientStatuses"
 		settings.delayTransientStatuses ? `-delayTransientStatuses` : null,
 		settings.optimizeDbBeforeStartup ? `-optimizeDbBeforeStartup` : null
 	].filter((a) => Boolean(a)).join(" ");
-	await exec.exec(`sudo docker run --name dynamodb -d -p ${settings.port}:${settings.port} amazon/dynamodb-local -jar DynamoDBLocal.jar -port ${settings.port}${extraArguments ? ` ${extraArguments}` : ""}`);
+
+	// Pin version to 1.13.6 - 1.15 (the latest at time of wriging) contains a bug where the error
+	// message has the key "Message" rather than "message", which breaks ExAws's error parsing.
+	await exec.exec(`sudo docker run --name dynamodb -d -p ${settings.port}:${settings.port} amazon/dynamodb-local:1.13.6 -jar DynamoDBLocal.jar -port ${settings.port}${extraArguments ? ` ${extraArguments}` : ""}`);
 })();
