@@ -18,4 +18,5 @@ Below is the default commands and settings for this action. For any properties t
     optimizeDbBeforeStartup: # undefined by default
     port: 8000
     cors: '*'
+    version: 'latest'
 ```
