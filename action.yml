@@ -21,6 +21,10 @@ inputs:
     description: 'The cors settings that should be used. Default: *'
     required: false
     default: '*'
+  version:
+    description: 'Version of dynamodb local image to use. Default: latest'
+    required: false
+    default: 'latest'
 runs:
   using: 'node12'
   main: 'main.js'
